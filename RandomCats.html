@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+        <link rel="stylesheet" type="text/css" href="/Users/jessesegrist/Documents/New Page CSS/new-page.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+        <script id="knockout-mapping-script-include" src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
+    </head>
+    <body>
+        <div style="background: url('/Users/jessesegrist/Documents/purple-petaled-flower-field-1131407.jpg') no-repeat; background-size: cover; background-position: center;">
+     <!-- <section class="top-navigation">
+         <div class="top-nav-outer-container">
+            <div class="top-nav-inner-container">
+                <p class="nav-item">Sparrow</p>
+                <p class="nav-item">Mochi</p>
+            </div>
+         </div>
+     </section> -->
+            <section id="randomCatsSection" class="cats-page-section">
+                <div class="cats-page-header"> 
+                    <h1>Cats</h1>
+                    <a class="btn btn-one" href="javascript:;" data-bind="click: getCats"><span>Click to get cats</span></a>
+                </div>
+                <div class="random-cats-outer-container">
+                    <!-- <span data-bind="text: catName"></span> -->
+                    
+                    <div data-bind="foreach: cats"> 
+                        <!-- <img id="catImage" data-bind="attr: {src: url}" /> -->
+                        <!-- <div class="staticHeightImageContainer random-cat-image" data-bind="style: { backgroundImage: 'url(\'' + url + '\')' }"></div> -->
+                        <div class="random-cat-image-container">
+                            <img class="random-cat-image" data-bind="attr: {src: url}" />
+                        </div>
+                        <!-- <p data-bind="text: url"></p> -->
+                    </div>
+                </div>
+
+                
+            </section>
+        </div>
+    
+        <script>
+            var randomCatsViewModel = function() {
+                var self = this;
+
+                self.cats = ko.observableArray();
+                
+
+
+                self.getCats = function() {
+                    $.ajax({
+                        url: "https://api.thecatapi.com/v1/images/search",
+                        contentType: 'application/json',
+                        type: "GET",
+                        dataType: 'json',
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('x-api-key', '521cfb16-2aba-42a0-b98f-2bf139116a7f');
+                        }
+                    }).done(function (data) {
+                        self.cats(data);
+                    });
+                };
+
+                self.onLoadCats = $(document).ready(function(){
+                    self.getCats();
+                });
+            };
+            ko.applyBindings(randomCatsViewModel);
+        </script>
+    </body>
+</html>
