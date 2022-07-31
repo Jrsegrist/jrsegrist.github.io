@@ -26,11 +26,11 @@
                 <div class="random-cats-outer-container">
                     <!-- <span data-bind="text: catName"></span> -->
                     
-                    <div data-bind="foreach: $data.cats"> 
+                    <div data-bind="foreach: cats"> 
                         <!-- <img id="catImage" data-bind="attr: {src: url}" /> -->
                         <!-- <div class="staticHeightImageContainer random-cat-image" data-bind="style: { backgroundImage: 'url(\'' + url + '\')' }"></div> -->
                         <div class="random-cat-image-container">
-                            <img class="random-cat-image" data-bind="attr: {src: 'https://www.bungie.net/' + $data.profilePicturePath}" />
+                            <img class="random-cat-image" data-bind="attr: {src: url}" />
                         </div>
                         <!-- <p data-bind="text: url"></p> -->
                     </div>
@@ -45,23 +45,17 @@
                 var self = this;
 
                 self.cats = ko.observableArray();
-
-                //url: "https://www.bungie.net/Platform/User/GetBungieNetUserById/11545679/",
                 
-                ///Destiny2/1/Profile/11545679/Character/{characterId}/
 
-                //url: "https://www.bungie.net/Platform/Destiny2/1/Profile/11545679?components=200",
-
-                //Platform/Destiny/{MEM_TYPE}/Account/{MEM_ID}/ and g
 
                 self.getCats = function() {
                     $.ajax({
-                        url: "https://www.bungie.net/Platform/User/GetBungieNetUserById/11545679/",
+                        url: "https://api.thecatapi.com/v1/images/search",
                         contentType: 'application/json',
                         type: "GET",
                         dataType: 'json',
                         beforeSend: function (xhr) {
-                            xhr.setRequestHeader('x-api-key', '12b9482e8e8e4420b87595dffd0fc636');
+                            xhr.setRequestHeader('x-api-key', '521cfb16-2aba-42a0-b98f-2bf139116a7f');
                         }
                     }).done(function (data) {
                         self.cats(data);
