@@ -88,7 +88,7 @@
                         });
                         console.log(self.itemInstanceIds()); 
                         $.ajax({
-                            url: "https://www.bungie.net/Platform/Destiny2/1/Profile/4611686018433168937/Item?components=" + self.itemInstanceIds(),
+                            url: "https://www.bungie.net/Platform/Destiny2/1/Profile/4611686018433168937/Item" + self.itemInstanceIds()+ "?components=",
                             contentType: 'application/json',
                             type: "GET",
                             dataType: 'json',
