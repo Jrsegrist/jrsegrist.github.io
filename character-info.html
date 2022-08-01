@@ -19,13 +19,6 @@
          </div>
      </section> -->
             <section id="randomCatsSection" class="cats-page-section">
-                <div class="cats-page-header"> 
-                    <h1>Cats</h1>
-                    <a class="btn btn-one" href="javascript:;" data-bind="click: getCats"><span>Click to get cats</span></a>
-
-                    <a href="./login.html" target="_blank">Sign In</a>
-                    <a href="./character-info.html" target="_blank">View Emblems    </a>
-                </div>
                 <div class="random-cats-outer-container">
                     <!-- <span data-bind="text: catName"></span> -->
                     
@@ -33,9 +26,9 @@
                         <!-- <img id="catImage" data-bind="attr: {src: url}" /> -->
                         <!-- <div class="staticHeightImageContainer random-cat-image" data-bind="style: { backgroundImage: 'url(\'' + url + '\')' }"></div> -->
                         <div class="random-cat-image-container">
-                            <div data-bind="foreach: $data.equipment.data.items">
-                                <p data-bind="text: $data.itemInstanceId"></p>
-                            </div>
+                            <img class="random-cat-image" data-bind="attr: {src: 'https://www.bungie.net/' + $data.character.data.emblemPath}" />
+                            <img class="random-cat-image" data-bind="attr: {src: 'https://www.bungie.net/' + $data.character.data.emblemBackgroundPath}" />
+                            <p data-bind="text: $data.character.data.emblemPath"></p>
                         </div>
                         <!-- <p data-bind="text: url"></p> -->
                     </div>
@@ -50,10 +43,6 @@
                 var self = this;
 
                 self.cats = ko.observableArray();
-                self.equippedItems = ko.observableArray();
-
-                self.itemInstanceIds = ko.observableArray();
-                self.itemInstanceId = ko.observable();
 
                 //url: "https://www.bungie.net/Platform/User/GetBungieNetUserById/11545679/",
 
@@ -72,7 +61,7 @@
 
                 self.getCats = function() {
                     $.ajax({
-                        url: "https://www.bungie.net/Platform/Destiny2/1/Profile/4611686018433168937/Character/2305843009261352952?components=205",
+                        url: "https://www.bungie.net/Platform/Destiny2/1/Profile/4611686018433168937/Character/2305843009261352952?components=200",
                         contentType: 'application/json',
                         type: "GET",
                         dataType: 'json',
@@ -82,23 +71,6 @@
                     }).done(function (data) {
                         self.cats(data.Response);
                         console.log(self.cats());
-                        
-                        $.each(data.Response.equipment.data.items,(i, r) => {
-                           self.itemInstanceIds().push(r.itemInstanceId); 
-                        });
-                        console.log(self.itemInstanceIds()); 
-                        $.ajax({
-                            url: "https://www.bungie.net/Platform/Destiny2/1/Profile/4611686018433168937/Item?components=" + self.itemInstanceIds(),
-                            contentType: 'application/json',
-                            type: "GET",
-                            dataType: 'json',
-                            beforeSend: function (xhr) {
-                                xhr.setRequestHeader('x-api-key', '12b9482e8e8e4420b87595dffd0fc636');
-                            }
-                        }).done(function (data) {
-                            self.equippedItems(data.Response);
-                            console.log(self.equippedItems());
-                        });
                     });
                 };
 
