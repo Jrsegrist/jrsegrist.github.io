@@ -26,5 +26,29 @@
 
         console.log(code);
 
+        var X = base64encode("40938" + ":" + "rE8NpCag3yydSucQD-h6WQVf-4-GI0gutmBOQKkGbE4");
+
+        request.post({
+            url: 'https://www.bungie.net/Platform/App/OAuth/Token/?grant_type=authorization_code&client_id=40938&code=3b582eb7641876633aedd5360503e47f',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-API-Key': '12b9482e8e8e4420b87595dffd0fc636',
+                'Authorization': 'Basic ' + X
+            },
+            form: {
+                'grant_type': 'authorization_code',
+                'client_id': '40938',
+                'code': '3b582eb7641876633aedd5360503e47f'
+            }
+        }, function(err, res, body) {
+            console.log(body + " \nstatus code: " + res.statusCode + "\ncookie: " + res.headers['set-cookie']);
+        });
+
+        //Once we have the code, send it to the token api
+
+        //Then, once we have the token information, store it as a cookie in the browser
+
+        //Finally, redirect to the main page
+
     </script>
 </html>
