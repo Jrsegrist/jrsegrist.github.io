@@ -27,9 +27,9 @@
         console.log(authCode);
 
         var tokenData = undefined;
-        var apiKey = ${{ secrets.BUNGIE_API }};
+        var apiKey = ${ secrets.BUNGIE_API };
         var clientId = "40938";
-        var clientSecret = ${{ secrets.BUNGIE_CLIENT_SECRET }};
+        var clientSecret = ${{secrets.BUNGIE_CLIENT_SECRET };
         var authCode = getUrlVars()["code"];
 
         if (window.location.href.includes("code=")) {
