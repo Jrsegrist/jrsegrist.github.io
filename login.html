@@ -10,6 +10,9 @@
 
     <script>
         require('dotenv').config();
+
+        console.log(process.env);
+
         function getUrlVars()
         {
             var vars = [], hash;
@@ -30,7 +33,7 @@
         var tokenData = undefined;
         var apiKey = process.env.BUNGIE_API;
         var clientId = "40938";
-        var clientSecret = process.env.BUNGIE_CLIENT_SECRET;
+        var clientSecret = "rE8NpCag3yydSucQD-h6WQVf-4-GI0gutmBOQKkGbE4";
         var authCode = getUrlVars()["code"];
 
         if (window.location.href.includes("code=")) {
