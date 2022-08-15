@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
     </head>
     <body>
         <p>Test</p>
@@ -52,6 +52,7 @@
                 .then(function(data) {
                     tokenData = data;
                     console.log(data);
+                    Cookies.set('BungieMembId', data.membership_id);
                 })
             }
     
