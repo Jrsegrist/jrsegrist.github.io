@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    </head>
+    <body>
+        <p>Test</p>
+    
+        <a href="https://www.bungie.net/en/OAuth/Authorize?client_id=40938&response_type=code" target="_blank">Login!</a>
+
+        <script>
+            function getUrlVars()
+            {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for(var i = 0; i < hashes.length; i++)
+                {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            }
+    
+            
+    
+            console.log(authCode);
+    
+            var tokenData = undefined;
+            var apiKey = "12b9482e8e8e4420b87595dffd0fc636";
+            var clientId = "40938";
+            var clientSecret = "rE8NpCag3yydSucQD-h6WQVf-4-GI0gutmBOQKkGbE4";
+            var authCode = getUrlVars()["code"];
+    
+            if (window.location.href.includes("code=")) {
+                fetch('https://www.bungie.net/Platform/App/OAuth/Token/', {
+                    method: 'POST',
+                    headers: {
+                    'X-API-Key': apiKey,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Basic ${window.btoa(`${clientId}:${clientSecret}`)}`
+                    },
+                    body: new URLSearchParams({
+                    'client_id': clientId,
+                    'grant_type': "authorization_code",
+                    'code': authCode
+                    }).toString()
+                }).then(function(response) {
+                    console.log(response);
+                    return response.json();
+                })
+                .then(function(data) {
+                    tokenData = data;
+                    console.log(data);
+                })
+            }
+    
+            //Once we have the code, send it to the token api
+    
+            //Then, once we have the token information, store it as a cookie in the browser
+    
+            //Finally, redirect to the main page
+    
+        </script>
+    </body>
+</html>
