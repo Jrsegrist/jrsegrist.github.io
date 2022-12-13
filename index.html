@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-        <link rel="stylesheet" type="text/css" href="/css/new-page.css" />
+        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
         <script id="knockout-mapping-script-include" src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
     </head>
     <body>
         <div style="background: url('/images/annibale-siconolfi-inward-the-shield.jpg') no-repeat; background-size: cover; background-position: center;">
@@ -54,6 +55,7 @@
 
                 self.itemInstanceIds = ko.observableArray();
                 self.itemInstanceId = ko.observable();
+                self.memberId = ko.observable();
 
                 //url: "https://www.bungie.net/Platform/User/GetBungieNetUserById/11545679/",
 
@@ -101,12 +103,35 @@
                         });
                     });
                 };
+              
+               
 
                 self.onLoadCats = $(document).ready(function(){
-                    self.getCats();
+                    // self.getCats();
+                    
                 });
             };
             ko.applyBindings(randomCatsViewModel);
+          
+            (async() => {
+
+            const memberId = Cookies.get("BungieMemberID");
+            const platFormId = '1';
+
+            try {
+              const api_url = `member-api/${memberId},${platFormId}`;
+              const response = await fetch(api_url);
+              const json = await response.json();
+              
+              console.log(json);
+              
+
+            } catch (error) {
+              console.error(error);
+            }
+
+            })();
+          
         </script>
     </body>
 </html>
